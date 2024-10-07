@@ -3,111 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Prediction Results</title>
+    <title>BN LAST KING</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraktur&display=swap" rel="stylesheet"> <!-- Fraktur font -->
     <style>
+        /* Universal Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            height: 100vh;
+            min-height: 100vh; /* Minimum height for proper layout */
+            display: flex;
+            flex-direction: column; /* Content below */
+            justify-content: center; /* Center content vertically */
+            align-items: center;
+            background: linear-gradient(135deg, red, orange, yellow, green, blue, violet); /* Rainbow gradient background */
+            color: #ffffff; /* White text color for contrast */
+        }
+
+        /* Main Content Container */
+        .main-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            background: linear-gradient(270deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
-            background-size: 800% 800%;
-            animation: gradientAnimation 10s ease infinite;
+            flex-direction: column;
+            width: 100%;
+            position: relative; /* For absolute positioning of neon effect */
         }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff; /* White for contrast */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0px 4px 10px rgba(255, 255, 255, 0.8); /* Glowing shadow */
+            font-family: 'Fraktur', cursive; /* Changed text style to Fraktur */
         }
 
-        .result-box {
-            width: 400px;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            border: 5px solid;
-            animation: rgb-border 2s infinite;
+        .stats {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(50, 50, 50, 0.8); /* Light black background */
+            border-radius: 15px;
+            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.4), inset -4px -4px 10px rgba(255, 255, 255, 0.2); /* Neumorphism effect */
+            font-family: 'Fraktur', cursive; /* Changed text style to Fraktur */
+            color: #ffffff; /* White text color for contrast */
+            position: relative; /* For neon line animation */
+            overflow: hidden; /* Hide overflow for animation */
         }
 
-        @keyframes rgb-border {
-            0% { border-color: red; }
-            33% { border-color: green; }
-            66% { border-color: blue; }
-            100% { border-color: red; }
+        .neon-line {
+            position: absolute;
+            width: 100%;
+            height: 10px; /* Height of the neon line */
+            background-color: #39FF14; /* Neon green color */
+            transform: translateY(-100%); /* Start position above */
+            animation: none; /* Initial no animation */
+            transition: all 0.3s ease; /* Smooth transition for animations */
         }
 
-        .result-history {
-            margin-top: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
+        .button-container {
+            margin-top: 30px;
         }
 
-        .history-item {
-            margin: 5px 0;
-            padding: 5px;
-            border-bottom: 1px solid #555;
+        .button {
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            background-color: #FF6F61; /* Coral red button */
+            color: #ffffff; /* White text */
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.1); /* Soft neumorphism */
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #FF4C40; /* Darker coral red on hover */
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5), -4px -4px 15px rgba(255, 255, 255, 0.2); /* Intense glow on hover */
+        }
+
+        @media(max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats {
+                font-size: 1.2rem;
+            }
+
+            .button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        /* Animation keyframes */
+        @keyframes neonAnimation {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(10px);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="result-box">
-        <h2>EARN WITH ISHANI Current Period: <span id="periodNumber">Loading...</span></h2>
-        <h3>Result: <span id="currentResult">Loading...</span></h3>
-        <h3>Time Remaining: <span id="timer">00:00</span></h3>
-        
-        <div class="result-history">
-            <h3>Result History</h3>
-            <div id="history"></div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>EARN WITH ISHANI</h1>
+
+        <div id="timer30s" class="stats">
+            Timer: 30
+            <div class="neon-line"></div>
+        </div>
+        <div id="period30s" class="stats">
+            Period Number: 0
+            <div class="neon-line"></div>
+        </div>
+        <div id="result" class="stats">
+            Result:
+            <div class="neon-line"></div>
+        </div>
+
+        <!-- Telegram Channel Button -->
+        <div class="button-container">
+            <a href="https://t.me/+DQT6BofX9zFmNjY1" class="button" target="_blank" id="neonButton">Join Our Telegram Channel</a>
         </div>
     </div>
 
     <script>
-        const resultPattern = ['BIG', 'SMALL', 'BIG', 'SMALL', 'BIG', 'SMALL', 'SMALL', 'SMALL', 'BIG', 'SMALL', 'BIG', 'SMALL'];
-        let historyElement = document.getElementById('history');
-        let currentResult = document.getElementById('currentResult');
-        let periodNumber = document.getElementById('periodNumber');
-        let timerElement = document.getElementById('timer');
-        let previousPeriod = null;
-        let periodCount = 0;
+        let previousPeriod = '';
 
-        // Function to update timer and results
-        function updateTimer() {
-            const now = new Date();
-            const remainingSeconds = 60 - now.getSeconds();
-            const totalMinutes = now.getHours() * 60 + now.getMinutes();
-            const currentPeriod = `2024${("0" + (10001 + totalMinutes)).slice(-6)}`;
-
-            periodNumber.innerText = currentPeriod;
-            timerElement.innerText = `00:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-
-            // Check if period number has changed
-            if (currentPeriod !== previousPeriod) {
-                // Update result when period number changes
-                const result = resultPattern[periodCount % resultPattern.length];
-                currentResult.innerText = result;
-
-                // Update history
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.innerText = `Period ${currentPeriod}: ${result}`;
-                historyElement.prepend(historyItem);
-
-                // Update period count and save the current period
-                periodCount++;
-                previousPeriod = currentPeriod;
-            }
+        function formatTime(seconds) {
+            return seconds + 's';
         }
 
-        // Run every second
-        setInterval(updateTimer, 1000);
+        function predictResult(periodNumber) {
+            // Get the last digit of the period number to determine BIG or SMALL
+            const lastDigit = parseInt(periodNumber.slice(-1));
+
+            // Determine if BIG or SMALL
+            const bigSmall = lastDigit >= 5 ? "BIG" : "SMALL";
+
+            // Calculate the sum of all digits in the period number
+            const sumOfDigits = periodNumber.split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+
+            // Determine if RED or GREEN based on sum of digits (even or odd)
+            const redGreen = sumOfDigits % 2 === 0 ? "RED" : "GREEN";
+
+            return `${bigSmall}/${redGreen}`;
+        }
+
+        setInterval(function () {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const remainingSeconds = 30 - (seconds % 30);
+
+            // Get current minutes and convert to total minutes from start of day
+            const totalMinutes = now.getHours() * 60 + now.getMinutes();
+
+            // Generate period number with current year, month, day, and 30-second intervals
+            const periodNumber = now.getFullYear().toString() + 
+                String(now.getMonth() + 1).padStart(2, '0') + 
+                String(now.getDate()).padStart(2, '0') + 
+                "30" + 
+                (1 + totalMinutes * 2 + (seconds >= 30 ? 1 : 0));
+
+            // Update timer display with remaining seconds
+            document.getElementById('timer30s').textContent = `Timer: ${formatTime(remainingSeconds)}`;
+
+            // Update period number display
+            document.getElementById('period30s').textContent = "Period Number: " + periodNumber;
+
+            // Check for a period change and update result
+            if (periodNumber !== previousPeriod) {
+                previousPeriod = periodNumber;
+
+                // Predict result based on the period number
+                const resultPrediction = predictResult(periodNumber);
+
+                document.getElementById('result').textContent = "Result: " + resultPrediction;
+            }
+        }, 1000);
+
+        // Neon Line Animation on Button Click
+        document.getElementById('neonButton').addEventListener('click', function () {
+            const neonLines = document.querySelectorAll('.neon-line');
+            neonLines.forEach(line => {
+                line.style.animation = 'neonAnimation 0.6s forwards'; // Start animation
+                setTimeout(() => {
+                    line.style.animation = 'none'; // Reset animation after it completes
+                }, 600);
+            });
+        });
     </script>
 
 </body>
